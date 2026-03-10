@@ -15,7 +15,7 @@ public class LocationService {
     private final LocationRepository locationRepository;
 
     public List<Location> getAllProvinces() {
-        return locationRepository.findByLevel("Province");
+        return locationRepository.findByType("PROVINCE");
     }
 
     public List<Location> getChildren(Long parentId) {
@@ -32,5 +32,4 @@ public class LocationService {
         return ids;
     }
 
-    
 }

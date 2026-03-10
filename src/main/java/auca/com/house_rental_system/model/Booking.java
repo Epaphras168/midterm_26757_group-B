@@ -5,16 +5,20 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Booking {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private LocalDate startDate;
     private LocalDate endDate;
     @Enumerated(EnumType.STRING)
-    private BookingStatus status;   
+    private BookingStatus status;
 
     @ManyToOne
     @JoinColumn(name = "tenant_id", nullable = false)
@@ -27,11 +31,8 @@ public class Booking {
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
     private Review review;
 
-
     public enum BookingStatus {
-    PENDING, CONFIRMED, CANCELLED
-}
-    
-}
+        PENDING, CONFIRMED, CANCELLED
+    }
 
-
+}

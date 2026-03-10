@@ -9,6 +9,7 @@ import auca.com.house_rental_system.model.Location;
 
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Long> {
-    List<Location> findByLevel(String level);
+    List<Location> findByType(String type);
+
     List<Location> findByParentId(Long parentId);
 }

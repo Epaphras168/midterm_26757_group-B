@@ -2,6 +2,7 @@ package auca.com.house_rental_system.controller;
 
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
 
 import auca.com.house_rental_system.model.Property;
 import auca.com.house_rental_system.service.PropertyService;
@@ -23,10 +24,10 @@ public class PropertyController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Property createProperty(@RequestBody Property property) {
-        
+
         return propertyService.createProperty(property);
     }
 
-    
 }
