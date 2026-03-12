@@ -137,4 +137,3 @@ Adds a new rental property to the system.
   }
 }
 ```
-# midterm_26757_group-B
