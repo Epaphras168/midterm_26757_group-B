@@ -2,6 +2,8 @@ package auca.com.house_rental_system.service;
 
 import java.util.*;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import auca.com.house_rental_system.model.Location;
@@ -14,12 +16,12 @@ public class LocationService {
 
     private final LocationRepository locationRepository;
 
-    public List<Location> getAllProvinces() {
-        return locationRepository.findByType("PROVINCE");
+    public Page<Location> getAllProvinces(Pageable pageable) {
+        return locationRepository.findByType("PROVINCE", pageable);
     }
 
-    public List<Location> getChildren(Long parentId) {
-        return locationRepository.findByParentId(parentId);
+    public Page<Location> getChildren(Long parentId, Pageable pageable) {
+        return locationRepository.findByParentId(parentId, pageable);
     }
 
     // Recursively collect all descendant IDs
@@ -30,6 +32,17 @@ public class LocationService {
             ids.addAll(getAllDescendantIds(child));
         }
         return ids;
+    }
+
+    @org.springframework.transaction.annotation.Transactional
+    public List<Location> saveAll(List<Location> locations) {
+        for (Location loc : locations) {
+            if (loc.getParent() != null && loc.getParent().getCode() != null) {
+                Location parentDB = locationRepository.findByCode(loc.getParent().getCode());
+                loc.setParent(parentDB);
+            }
+        }
+        return locationRepository.saveAll(locations);
     }
 
 }

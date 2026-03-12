@@ -41,6 +41,7 @@ public class Location {
     private Location parent;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private List<Location> children = new ArrayList<>();
 
 }
