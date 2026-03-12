@@ -166,6 +166,7 @@ Adds a new rental property to the system.
   }
 }
 ```
+<<<<<<< HEAD
 
 ---
 
@@ -179,3 +180,5 @@ This project is mapped relationally adhering strictly to ORM specifications:
 - **Advanced JPQL**: `UserRepository` executes a `WITH RECURSIVE` geospatial JPQL querying structure to retrieve users hierarchically by checking their localized District/Village against the Parent Province Code dynamically.
 
 # midterm_26757_group-B
+=======
+>>>>>>> 81c99ed11cd2450723dc0d8a6aa0b0cb4a928085
