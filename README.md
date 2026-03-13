@@ -213,10 +213,14 @@ PUT /api/bookings/1/status?status=CONFIRMED
 ### Fetch Bookings
 You can retrieve bookings by ID, Tenant, or Property.
 
-- **URL:** `/api/bookings/property/{propertyId}` or `/api/bookings/tenant/{tenantId}`
+- **URLs:** 
+  - `/api/bookings/{id}`
+  - `/api/bookings/property/{propertyId}` 
+  - `/api/bookings/tenant/{tenantId}`
 - **Method:** `GET`
 - **Responses:**
-  - **200 OK:** List of bookings.
+  - **200 OK:** Returns the specific booking or list of bookings.
+  - **404 Not Found:** If the booking ID does not exist.
 
 ---
 
@@ -240,6 +244,19 @@ Allows a tenant to leave a rating and comment for a *confirmed* booking.
 ```http
 POST /api/reviews?bookingId=1&rating=5&comment=Great%20experience!
 ```
+
+---
+
+### Fetch Reviews
+Retrieve a review by its ID or by the associated Booking.
+
+- **URLs:** 
+  - `/api/reviews/{id}` 
+  - `/api/reviews/booking/{bookingId}`
+- **Method:** `GET`
+- **Responses:**
+  - **200 OK:** Returns the requested review object.
+  - **404 Not Found:** If the review does not exist.
 
 ---
 
