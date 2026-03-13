@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.management.relation.Role;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,9 +14,12 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "users")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,21 +32,19 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-
     @ManyToOne
     @JoinColumn(name = "residence_location_id")
     private Location residenceLocation;
 
     @OneToMany(mappedBy = "landlord")
+    @JsonIgnore
     private List<Property> properties = new ArrayList<>();
 
     @OneToMany(mappedBy = "tenant")
+    @JsonIgnore
     private List<Booking> bookings = new ArrayList<>();
 
-
     public enum Role {
-    LANDLORD, TENANT
+        LANDLORD, TENANT
+    }
 }
-}
-
-

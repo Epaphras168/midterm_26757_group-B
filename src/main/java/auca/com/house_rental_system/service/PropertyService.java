@@ -13,16 +13,14 @@ public class PropertyService {
 
     private final PropertyRepository propertyRepository;
 
-
-     public Page<Property> getProperties(int page, int size, String sortBy, String direction) {
+    public Page<Property> getProperties(int page, int size, String sortBy, String direction) {
         Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);
         return propertyRepository.findAll(pageable);
     }
 
     public Property createProperty(Property property) {
-        // validation, set landlord, location, etc.
         return propertyRepository.save(property);
     }
-    
+
 }

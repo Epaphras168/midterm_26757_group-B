@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Getter
 @Setter
@@ -23,6 +25,7 @@ public class Review {
 
     @OneToOne
     @JoinColumn(name = "booking_id", unique = true, nullable = false)
+    @JsonIgnoreProperties("review")
     private Booking booking;
 
 }

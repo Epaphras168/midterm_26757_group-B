@@ -8,5 +8,4 @@ import auca.com.house_rental_system.model.Property;
 @Repository
 public interface PropertyRepository extends JpaRepository<Property, Long> {
 
-    
 }

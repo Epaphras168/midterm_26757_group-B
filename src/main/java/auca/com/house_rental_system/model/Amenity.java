@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,5 +22,6 @@ public class Amenity {
     private String name;
 
     @ManyToMany(mappedBy = "amenities")
+    @JsonIgnore
     private Set<Property> properties = new HashSet<>();
 }

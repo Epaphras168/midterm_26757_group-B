@@ -166,11 +166,84 @@ Adds a new rental property to the system.
   }
 }
 ```
-<<<<<<< HEAD
+---
+
+## 4. Bookings Management
+Endpoints for booking properties and managing rental status.
+
+### Create a Booking (Rent a Property)
+Allows a tenant to book a house for specific dates.
+
+- **URL:** `/api/bookings`
+- **Method:** `POST`
+- **Query Parameters:**
+  - `propertyId` (Long, required): The ID of the property to book.
+  - `tenantId` (Long, required): The ID of the tenant booking.
+  - `startDate` (String, required): ISO Date `YYYY-MM-DD`.
+  - `endDate` (String, required): ISO Date `YYYY-MM-DD`.
+- **Responses:**
+  - **200 OK:** Successfully created the booking with `PENDING` status.
+  - **400 Bad Request:** Missing parameters or invalid entities.
+
+**Example Request:**
+```http
+POST /api/bookings?propertyId=1&tenantId=2&startDate=2026-06-01&endDate=2026-06-15
+```
 
 ---
 
-## 4. Database Schema & Architecture
+### Update Booking Status
+Allows landlord or system to confirm or cancel bookings.
+
+- **URL:** `/api/bookings/{id}/status`
+- **Method:** `PUT`
+- **Query Parameters:**
+  - `status` (String, required): Values could be `CONFIRMED`, `PENDING`, `CANCELLED`.
+- **Responses:**
+  - **200 OK:** Successfully updated.
+  - **400 Bad Request:** If booking is not found.
+
+**Example Request:**
+```http
+PUT /api/bookings/1/status?status=CONFIRMED
+```
+
+---
+
+### Fetch Bookings
+You can retrieve bookings by ID, Tenant, or Property.
+
+- **URL:** `/api/bookings/property/{propertyId}` or `/api/bookings/tenant/{tenantId}`
+- **Method:** `GET`
+- **Responses:**
+  - **200 OK:** List of bookings.
+
+---
+
+## 5. Review Management
+Endpoints for leaving reviews on properties tied to confirmed bookings.
+
+### Add a Review
+Allows a tenant to leave a rating and comment for a *confirmed* booking.
+
+- **URL:** `/api/reviews`
+- **Method:** `POST`
+- **Query Parameters:**
+  - `bookingId` (Long, required): The ID of the confirmed booking.
+  - `rating` (Integer, required): Value from 1 to 5.
+  - `comment` (String, required): Feedback content.
+- **Responses:**
+  - **200 OK:** Review added successfully.
+  - **400 Bad Request:** If booking is not confirmed or already reviewed.
+
+**Example Request:**
+```http
+POST /api/reviews?bookingId=1&rating=5&comment=Great%20experience!
+```
+
+---
+
+## 6. Database Schema & Architecture
 This project is mapped relationally adhering strictly to ORM specifications:
 
 - **Entity Relationship Diagram (ERD)**: Consists of 6 tightly integrated tables `Users`, `Locations`, `Properties`, `Amenities`, `Property_Amenities`, and `Booking` (with `Review`).
@@ -180,5 +253,3 @@ This project is mapped relationally adhering strictly to ORM specifications:
 - **Advanced JPQL**: `UserRepository` executes a `WITH RECURSIVE` geospatial JPQL querying structure to retrieve users hierarchically by checking their localized District/Village against the Parent Province Code dynamically.
 
 # midterm_26757_group-B
-=======
->>>>>>> 81c99ed11cd2450723dc0d8a6aa0b0cb4a928085
